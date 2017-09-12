@@ -64,6 +64,7 @@ jobs:
   plan:
   - aggregate:
     - get: artifact
+      trigger: true
       passed: [build]
     - get: app
     - get: version
