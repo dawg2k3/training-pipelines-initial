@@ -63,14 +63,14 @@ jobs:
 - name: deploy-dev
   plan:
   - aggregate:
-    - get: artifact
-      trigger: true
+    - get: artifact      
       passed: [build]
+      trigger: true
     - get: app
     - get: version
       passed: [build]
     - get: pipelines
-  - task: build
+  - task: blue-green-deploy
     file: ((deploy_dev_task))
     params:
       CF_APP_NAME: ((app_name))
