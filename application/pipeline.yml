@@ -60,18 +60,18 @@ jobs:
   - put: version
     params: {file: version/number}
 
- - name: deploy-dev
-   plan:
-   - aggregate:
-     - get: artifact
-       passed: [build]
-     - get: app
-     - get: version
-       passed: [build]
-     - get: pipelines
-   - task: build
-     file: ((deploy_dev_task))
-     params:
+- name: deploy-dev
+  plan:
+  - aggregate:
+    - get: artifact
+      passed: [build]
+    - get: app
+    - get: version
+      passed: [build]
+    - get: pipelines
+  - task: build
+    file: ((deploy_dev_task))
+    params:
       CF_APP_NAME: ((app_name))
       JAR_NAME: ((jar_name))
       CF_HOSTNAME: ((cf_dev_hostname))
@@ -82,7 +82,6 @@ jobs:
       CF_SPACE: ((cf_dev_space))
       CF_MANIFEST: ((cf_dev_manifest))
       CF_DOMAIN: ((cf_dev_domain))
-
 
 - name: major
   serial_groups: [version]
